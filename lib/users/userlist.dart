@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:interviewtask/chat/chatscreen.dart';
+import 'package:interviewtask/profile/profile.dart';
 
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});
@@ -16,6 +16,11 @@ class UserListScreenState extends State<UserListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Firebase Users List'),
+        actions: [
+          IconButton(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ProfileScreen(),),);
+          }, icon: const Icon(Icons.person))
+        ],
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: fetchUsers(),
@@ -36,7 +41,7 @@ class UserListScreenState extends State<UserListScreen> {
                     subtitle: Text(snapshot.data![index]["uid"]),
                     leading: const FlutterLogo(),
                     onTap: (){
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const ChatScreen(),),);
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ChatScreen(),),);
                     },
                   ),
                 );
